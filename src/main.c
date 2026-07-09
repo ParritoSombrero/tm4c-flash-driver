@@ -3,13 +3,19 @@
 #include "gpio.h"
 #include "flash.h"
 
+uint32_t firmware[] = {
+    0x12345678,
+    0xDEADBEEF,
+    0x87654321
+};
+
 int main(void) {
     gpio_init();
-    redLEDon();
+    blueLEDon();
     eraseAddress(0x00035000);
-    flashAddress(0x00035008, 0x00000001);
-    redLEDoff();
-    if (verifyAddress(0x00035008, 0x00000001)) {
+    flashBufferAddress(0x00035000, firmware, 3);
+    blueLEDoff();
+    if (verifyBufferAddress(0x00035000, firmware, 3)) {
         greenLEDon();
     } else {
         redLEDon();

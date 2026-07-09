@@ -37,3 +37,19 @@ void eraseAddress(uint32_t address) {
 bool verifyAddress(uint32_t address, uint32_t data) {
     return (*(volatile uint32_t *)address == data);
 }
+
+
+void flashBufferAddress(uint32_t address, const uint32_t *buffer, uint32_t words) {
+    for (uint32_t i = 0; i < words; i++) {
+        flashAddress(address + i * 4, buffer[i]);
+    }
+}
+
+bool verifyBufferAddress(uint32_t address, const uint32_t *buffer, uint32_t words) {
+    for (uint32_t i = 0; i < words; i++) {
+        if (!verifyAddress(address + i * 4, buffer[i])) {
+            return false;
+        }
+    }
+    return true;
+}

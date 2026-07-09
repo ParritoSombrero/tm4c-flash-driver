@@ -21,5 +21,7 @@
 void flashAddress(uint32_t address, uint32_t data);
 bool verifyAddress (uint32_t address, uint32_t data);
 void eraseAddress(uint32_t address);
+void flashBufferAddress(uint32_t address, const uint32_t *buffer, uint32_t data);
+bool verifyBufferAddress(uint32_t address, const uint32_t *buffer, uint32_t words);
 
 #endif 
